@@ -50,8 +50,28 @@
                         <input type="email" id="emailModern" placeholder="Email">
                         <input type="tel" id="phoneModern" placeholder="Phone Number">
                         <input type="text" id="dogNameModern" placeholder="Dog's Name">
-                        <input type="date" id="dateModern">
-                        <input type="time" id="timeModern">
+                        
+                        <div class="calendar-section">
+                            <label for="calendar-container">Select Date & Time:</label>
+                            <div id="calendar-container" class="calendar-container">
+                                <div class="calendar-header">
+                                    <button type="button" id="prevMonth" class="calendar-nav">&lt;</button>
+                                    <h4 id="currentMonth"></h4>
+                                    <button type="button" id="nextMonth" class="calendar-nav">&gt;</button>
+                                </div>
+                                <div class="calendar-grid" id="calendarGrid"></div>
+                            </div>
+                            
+                            <div id="timeSlots" class="time-slots" style="display:none;">
+                                <h5>Available Times:</h5>
+                                <div id="timeSlotsContainer" class="time-slots-container"></div>
+                            </div>
+                            
+                            <input type="hidden" id="dateModern">
+                            <input type="hidden" id="timeModern">
+                            <div id="selectedDateTime" class="selected-datetime"></div>
+                        </div>
+                        
                         <textarea id="specialRequestsModern" rows="2" placeholder="Special Requests or Notes"></textarea>
                         <div class="price-display" id="priceDisplay" style="margin-top:1.5rem;font-size:1.3rem;color:#4a90e2;"></div>
                         <button id="submitModernBooking">Book Now</button>

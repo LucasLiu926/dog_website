@@ -138,13 +138,223 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Set minimum date to today
-    const dateInputModern = document.getElementById('dateModern');
-    if (dateInputModern) {
-        const today = new Date().toISOString().split('T')[0];
-        dateInputModern.min = today;
-    }
+    // Initialize Calendar
+    initializeCalendar();
 });
+
+// Calendar functionality
+function initializeCalendar() {
+    const currentDate = new Date();
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
+    let selectedDate = null;
+    let selectedTime = null;
+
+    const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    // Sample availability data - in a real app, this would come from your booking system
+    const availability = {
+        // Format: 'YYYY-MM-DD': ['09:00', '10:00', '14:00', '15:00']
+        // This is just sample data - you'd replace with real availability
+    };
+
+    // Generate sample availability for the next 30 days
+    function generateSampleAvailability() {
+        const today = new Date();
+        for (let i = 1; i <= 30; i++) {
+            const date = new Date(today);
+            date.setDate(today.getDate() + i);
+            const dateStr = date.toISOString().split('T')[0];
+            
+            // Skip Sundays (day 0) for this example
+            if (date.getDay() === 0) {
+                availability[dateStr] = [];
+                continue;
+            }
+            
+            // Generate random available times
+            const times = [];
+            const possibleTimes = ['08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
+            
+            // Randomly make some times available
+            possibleTimes.forEach(time => {
+                if (Math.random() > 0.3) { // 70% chance of being available
+                    times.push(time);
+                }
+            });
+            
+            availability[dateStr] = times;
+        }
+    }
+
+    generateSampleAvailability();
+
+    function renderCalendar() {
+        const calendarGrid = document.getElementById('calendarGrid');
+        const currentMonthElement = document.getElementById('currentMonth');
+        
+        currentMonthElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+        
+        // Clear previous calendar
+        calendarGrid.innerHTML = '';
+        
+        // Add day headers
+        dayNames.forEach(day => {
+            const dayHeader = document.createElement('div');
+            dayHeader.className = 'calendar-day-header';
+            dayHeader.textContent = day;
+            calendarGrid.appendChild(dayHeader);
+        });
+        
+        // Get first day of month and number of days
+        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        const today = new Date();
+        
+        // Add empty cells for days before month starts
+        for (let i = 0; i < firstDay; i++) {
+            const emptyDay = document.createElement('div');
+            emptyDay.className = 'calendar-day other-month';
+            calendarGrid.appendChild(emptyDay);
+        }
+        
+        // Add days of the month
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day';
+            dayElement.textContent = day;
+            
+            const dayDate = new Date(currentYear, currentMonth, day);
+            const dateStr = dayDate.toISOString().split('T')[0];
+            
+            // Mark today
+            if (dayDate.toDateString() === today.toDateString()) {
+                dayElement.classList.add('today');
+            }
+            
+            // Mark past dates as unavailable
+            if (dayDate < today) {
+                dayElement.classList.add('unavailable');
+            } else {
+                // Check availability
+                const dayAvailability = availability[dateStr] || [];
+                if (dayAvailability.length === 0) {
+                    dayElement.classList.add('unavailable');
+                } else if (dayAvailability.length < 3) {
+                    dayElement.classList.add('busy');
+                }
+                
+                // Add click handler for available days
+                if (dayAvailability.length > 0) {
+                    dayElement.addEventListener('click', () => selectDate(dateStr, dayElement));
+                }
+            }
+            
+            calendarGrid.appendChild(dayElement);
+        }
+    }
+
+    function selectDate(dateStr, dayElement) {
+        // Remove previous selection
+        document.querySelectorAll('.calendar-day.selected').forEach(el => {
+            el.classList.remove('selected');
+        });
+        
+        // Select new date
+        dayElement.classList.add('selected');
+        selectedDate = dateStr;
+        
+        // Show available times
+        showTimeSlots(dateStr);
+        
+        // Update hidden input
+        document.getElementById('dateModern').value = dateStr;
+    }
+
+    function showTimeSlots(dateStr) {
+        const timeSlotsContainer = document.getElementById('timeSlotsContainer');
+        const timeSlotsSection = document.getElementById('timeSlots');
+        const dayAvailability = availability[dateStr] || [];
+        
+        timeSlotsContainer.innerHTML = '';
+        
+        if (dayAvailability.length === 0) {
+            timeSlotsSection.style.display = 'none';
+            return;
+        }
+        
+        dayAvailability.forEach(time => {
+            const timeSlot = document.createElement('div');
+            timeSlot.className = 'time-slot';
+            timeSlot.textContent = time;
+            timeSlot.addEventListener('click', () => selectTime(time, timeSlot));
+            timeSlotsContainer.appendChild(timeSlot);
+        });
+        
+        timeSlotsSection.style.display = 'block';
+    }
+
+    function selectTime(time, timeElement) {
+        // Remove previous selection
+        document.querySelectorAll('.time-slot.selected').forEach(el => {
+            el.classList.remove('selected');
+        });
+        
+        // Select new time
+        timeElement.classList.add('selected');
+        selectedTime = time;
+        
+        // Update hidden input
+        document.getElementById('timeModern').value = time;
+        
+        // Show selected date and time
+        updateSelectedDateTime();
+    }
+
+    function updateSelectedDateTime() {
+        const selectedDateTimeElement = document.getElementById('selectedDateTime');
+        if (selectedDate && selectedTime) {
+            const date = new Date(selectedDate);
+            const formattedDate = date.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            selectedDateTimeElement.textContent = `Selected: ${formattedDate} at ${selectedTime}`;
+            selectedDateTimeElement.classList.add('show');
+        } else {
+            selectedDateTimeElement.classList.remove('show');
+        }
+    }
+
+    // Navigation event listeners
+    document.getElementById('prevMonth').addEventListener('click', () => {
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        renderCalendar();
+    });
+
+    document.getElementById('nextMonth').addEventListener('click', () => {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        renderCalendar();
+    });
+
+    // Initial render
+    renderCalendar();
+}
 
 function validateModernBooking(data) {
     // Basic email validation
@@ -160,7 +370,7 @@ function validateModernBooking(data) {
         return false;
     }
     // Check required fields
-    for (const key of ['dogSize','duration','ownerName','email','phone','dogName','date','time']) {
+    for (const key of ['dogSize','option','ownerName','email','phone','dogName','date','time']) {
         if (!data[key]) {
             alert('Please fill in all required fields');
             return false;
