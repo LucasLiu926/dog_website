@@ -754,6 +754,80 @@ footer {
     display: block;
 }
 
+/* Price Display Styles */
+.price-display {
+    margin: 2rem 0 1.5rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+    color: white;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
+    border: 3px solid #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.price-display::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+
+    50% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+
+    100% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+}
+
+.price-display .price-label {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.price-display .price-amount {
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 0;
+}
+
+.price-display.show {
+    animation: priceReveal 0.6s ease-out;
+}
+
+@keyframes priceReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
 @media (max-width: 400px) {
     .chatbot-widget {
         width: calc(100vw - 30px);
@@ -770,5 +844,14 @@ footer {
 
     .time-slots-container {
         grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    }
+
+    .price-display {
+        font-size: 1.5rem;
+        padding: 1rem;
+    }
+
+    .price-display .price-amount {
+        font-size: 2rem;
     }
 }

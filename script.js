@@ -117,9 +117,13 @@ document.addEventListener('DOMContentLoaded', function() {
             bookingData.dogSize = btn.getAttribute('data-size');
             sizeStep.style.display = 'none';
             infoStep.style.display = 'block';
-            // Show price
+            // Show price with enhanced styling
             const price = getPrice(bookingData.service, bookingData.option, bookingData.dogSize);
-            priceDisplay.textContent = `Estimated Price: $${price}`;
+            priceDisplay.innerHTML = `
+                <div class="price-label">Total Price</div>
+                <div class="price-amount">$${price}</div>
+            `;
+            priceDisplay.classList.add('show');
         });
     });
 
@@ -557,7 +561,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show info step directly with pre-filled price
         infoStep.style.display = 'block';
-        priceDisplay.textContent = `Estimated Price: $${price}`;
+        priceDisplay.innerHTML = `
+            <div class="price-label">Total Price</div>
+            <div class="price-amount">$${price}</div>
+        `;
+        priceDisplay.classList.add('show');
         
         // Scroll to booking section
         document.querySelector('.booking-modern').scrollIntoView({ 
