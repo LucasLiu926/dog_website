@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paws & Care - Dog Sitting Services</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Paws & Care</div>
+            <div class="contact-info">
+                📞 Call us: <a href="tel:+1234567890">(425) 866-1208</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Professional Dog Sitting Services</h1>
+            <p>Caring for your furry friends like they're our own</p>
+        </section>
+
+        <section class="booking-modern">
+            <h2>Book Your Dog's Stay</h2>
+            <div class="booking-steps">
+                <div class="step-card" id="serviceStep">
+                    <h3>1. Choose a Service</h3>
+                    <div class="options">
+                        <button class="option-btn" data-service="walk">🚶 Dog Walking</button>
+                        <button class="option-btn" data-service="daycare">🏡 Daycare</button>
+                        <button class="option-btn" data-service="overnight">🌙 Overnight Stay</button>
+                    </div>
+                </div>
+                <div class="step-card" id="optionStep" style="display:none;"></div>
+                <div class="step-card" id="sizeStep" style="display:none;">
+                    <h3>2. Choose Dog Size</h3>
+                    <div class="options">
+                        <button class="option-btn" data-size="small">Small</button>
+                        <button class="option-btn" data-size="medium">Medium</button>
+                        <button class="option-btn" data-size="large">Large</button>
+                        <button class="option-btn" data-size="xlarge">Extra Large</button>
+                    </div>
+                </div>
+                <div class="step-card" id="infoStep" style="display:none;">
+                    <h3>3. Your Info</h3>
+                    <div class="info-fields">
+                        <input type="text" id="ownerNameModern" placeholder="Your Name">
+                        <input type="email" id="emailModern" placeholder="Email">
+                        <input type="tel" id="phoneModern" placeholder="Phone Number">
+                        <input type="text" id="dogNameModern" placeholder="Dog's Name">
+                        <input type="date" id="dateModern">
+                        <input type="time" id="timeModern">
+                        <textarea id="specialRequestsModern" rows="2" placeholder="Special Requests or Notes"></textarea>
+                        <div class="price-display" id="priceDisplay" style="margin-top:1.5rem;font-size:1.3rem;color:#4a90e2;"></div>
+                        <button id="submitModernBooking">Book Now</button>
+                    </div>
+                </div>
+                <div class="step-card" id="thankYouStep" style="display:none;">
+                    <h3>Thank you!</h3>
+                    <p>Your booking request has been received. We'll contact you soon!</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="services">
+            <h2 style="text-align:center;">Our Services</h2>
+            <div class="service-cards">
+                <div class="service-card service-flare">
+                    <h3>🚶 Dog Walking</h3>
+                    <ul class="service-details">
+                        <li><strong>Duration Options:</strong> 15 min, 30 min, 1 hour, 2 hours, 3 hours</li>
+                        <li><em>Note:</em> Your dog will be walked and returned home after the selected time.</li>
+                    </ul>
+                    <div class="pricing-table">
+                        <div><strong>Small Dogs:</strong> $15 base (includes 1 hour) + $10/hour for additional time</div>
+                        <div><strong>Medium Dogs:</strong> $15 base (includes 1 hour) + $10/hour for additional time</div>
+                        <div><strong>Large Dogs:</strong> $20 base (includes 1 hour) + $15/hour for additional time</div>
+                        <div><strong>Extra Large Dogs:</strong> $25 base (includes 1 hour) + $15/hour for additional time</div>
+                    </div>
+                </div>
+                <div class="service-card service-flare">
+                    <h3>🏡 Daycare</h3>
+                    <ul class="service-details">
+                        <li><strong>Time Options:</strong> Hourly: 1 to 6 hours | Daily: 1 day, 2 days, or 3 days</li>
+                        <li><em>Note:</em> Your dog will be returned home after the time period selected.</li>
+                    </ul>
+                    <div class="pricing-table">
+                        <div><strong>Hourly Rates:</strong></div>
+                        <div>Small Dogs: $15/hour</div>
+                        <div>Medium Dogs: $20/hour</div>
+                        <div>Large Dogs: $30/hour</div>
+                        <div>Extra Large Dogs: $40/hour</div>
+                        <div style="margin-top:0.5em;"><strong>Daily Rates (1 day or more):</strong></div>
+                        <div>Small Dogs: $100/day</div>
+                        <div>Medium Dogs: $120/day</div>
+                        <div>Large Dogs: $150/day</div>
+                        <div>Extra Large Dogs: $200/day</div>
+                        <div style="margin-top:0.5em;font-size:0.95em;">Hourly and daily rates are separate. Once a full day is selected, daily pricing applies.</div>
+                    </div>
+                </div>
+                <div class="service-card service-flare">
+                    <h3>🌙 Overnight Stay</h3>
+                    <ul class="service-details">
+                        <li><strong>Stay Options:</strong> 1 night to 6 nights, or 1 full week</li>
+                        <li><em>Note:</em> Your dog will stay with us at the clinic for the full 24 hours each day/night, including supervision, rest, and care.</li>
+                    </ul>
+                    <div class="pricing-table">
+                        <div><strong>Nightly Rates:</strong></div>
+                        <div>Small Dogs: $100/night</div>
+                        <div>Medium Dogs: $120/night</div>
+                        <div>Large Dogs: $150/night</div>
+                        <div>Extra Large Dogs: $195/night</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Paws & Care. All rights reserved.</p>
+    </footer>
+
+    <!-- AI Chatbot Widget -->
+    <div id="chatbot-container" class="chatbot-container">
+        <div id="chatbot-toggle" class="chatbot-toggle">
+            <span class="chat-icon">💬</span>
+            <span class="chat-text">Ask AI</span>
+        </div>
+        
+        <div id="chatbot-widget" class="chatbot-widget">
+            <div class="chatbot-header">
+                <h3>🐕 Paws & Care Assistant</h3>
+                <button id="chatbot-close" class="chatbot-close">&times;</button>
+            </div>
+            
+            <div id="chatbot-messages" class="chatbot-messages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        Hi! I'm here to help with questions about our dog sitting services, pricing, and booking. What would you like to know?
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chatbot-input-area">
+                <input type="text" id="chatbot-input" placeholder="Ask about our services..." maxlength="200">
+                <button id="chatbot-send">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
