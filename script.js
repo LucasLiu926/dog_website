@@ -685,9 +685,24 @@ document.addEventListener('DOMContentLoaded', function() {
             return "We provide dog sitting services in the local area. For specific service areas and pickup/dropoff details, please call us at (425) 866-1208. We'd love to discuss how we can help care for your pup!";
         }
 
+        // Experience and qualifications
+        if (lowerMessage.includes('experience') || lowerMessage.includes('qualified') || lowerMessage.includes('certified') || lowerMessage.includes('about')) {
+            return "I'm Sarah, and I've been caring for dogs for over 5 years! 🐕<br><br>My qualifications include:<br>• Certified Dog Handler<br>• Pet First Aid Certified<br>• 200+ happy dogs cared for<br>• Specializing in anxious dogs, seniors, and special needs<br><br>I'm fully insured and bonded for your peace of mind!";
+        }
+
         // Emergency or special needs
-        if (lowerMessage.includes('emergency') || lowerMessage.includes('medication') || lowerMessage.includes('special')) {
-            return "We can accommodate special needs and medication schedules! Please mention any special requirements in the booking form or call us at (425) 866-1208 to discuss your dog's specific needs.";
+        if (lowerMessage.includes('emergency') || lowerMessage.includes('medication') || lowerMessage.includes('special') || lowerMessage.includes('anxious') || lowerMessage.includes('senior')) {
+            return "I specialize in special needs dogs! 🏥<br><br>I'm experienced with:<br>• Anxious and nervous dogs<br>• Senior dog care<br>• Medication administration<br>• Special diets<br>• Emergency situations<br><br>I'm Pet First Aid certified and have cared for 200+ dogs with various needs. Your pup will be in expert hands!";
+        }
+
+        // Insurance and safety
+        if (lowerMessage.includes('insurance') || lowerMessage.includes('insured') || lowerMessage.includes('safe') || lowerMessage.includes('bonded')) {
+            return "Safety first! 🛡️<br><br>I'm fully:<br>• Licensed and insured<br>• Bonded for your protection<br>• Pet First Aid certified<br>• Background checked<br><br>You'll receive real-time updates and photos during your dog's stay. Your peace of mind is my priority!";
+        }
+
+        // Reviews and testimonials
+        if (lowerMessage.includes('review') || lowerMessage.includes('testimonial') || lowerMessage.includes('feedback') || lowerMessage.includes('rating')) {
+            return "I'm proud to have 5-star reviews from all my clients! ⭐⭐⭐⭐⭐<br><br>Recent feedback:<br>• \"Sarah is amazing with anxious dogs!\"<br>• \"Professional and truly cares about the dogs\"<br>• \"Our dog is always excited to see her!\"<br><br>Check out more testimonials on the page above!";
         }
 
         // Greeting responses
